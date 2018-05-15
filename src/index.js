@@ -5,18 +5,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
-
-const productsReducer = (state=[], action) => {
-  return state;
-};
-
-const userReducer = (state = '', { type, payload }) => {
-  switch (type) {
-    case 'updateUser': 
-      return payload;
-  }
-  return state;
-}
+import productsReducer from './reducers/productsReducer';
+import userReducer from './reducers/userReducer';
 
 const allReducers = combineReducers({
   products: productsReducer,
