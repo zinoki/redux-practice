@@ -22,10 +22,12 @@ export function showError() {
 
 export function apiRequest() {
   return dispatch => {
+
     $.ajax({
       url: 'http://google.com',
-      success() {
+      success(response) {
         console.log('Success');
+        dispatch(updateUser(response.newUser))
       },
       error() {
         console.log('Error');
