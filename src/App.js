@@ -2,18 +2,25 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { connect } from 'react-redux';
-import { updateUser } from './actions/user-actions';
+import { updateUser, apiRequest } from './actions/user-actions';
+import { bindActionCreators } from 'redux';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.onUpdateUser = this.onUpdateUser.bind(this);
   }
+  componentDidMount() {
+    setTimeout(() => {
+      this.props.onApiRequest();
+
+    }, 1500)
+  }
   onUpdateUser(event) {
     this.props.onUpdateUser(event.target.value);
   }
   render() {
-    console.log(this.props);
+
     return (
       <div className="App">
         <header className="App-header">
@@ -30,14 +37,21 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => {
+  return ({
   products: state.products,
-  user: state.user
-})
+  user: state.user,
+  userPlusProp: `${state.user} ${props.aRandomProps}`
+  })
+}
 
 const mapActionsToProps = {
-  onUpdateUser: updateUser
-}
+  onUpdateUser: updateUser,
+  onApiRequest: apiRequest
+};
+
+
+
 
 export default connect(mapStateToProps, 
   mapActionsToProps)(App);
